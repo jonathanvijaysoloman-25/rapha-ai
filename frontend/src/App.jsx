@@ -12,7 +12,7 @@ import SymptomChecker from "./pages/SymptomChecker";
 import BMI from "./pages/BMI";
 import NearbyHospitals from "./pages/NearbyHospitals";
 import HealthChat from "./pages/HealthChat";
-import NearbyPharmacies from "./pages/NearbyPharmacies";
+import NearbyPharmacies from "./pages/NearByPharmacies";
 
 
 
