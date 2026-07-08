@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const authApi = axios.create({
-  baseURL: "http://localhost:5000/api/auth",
+  baseURL: "https://rapha-ai-server.onrender.com/api/auth",
 });
 
 export default authApi;
