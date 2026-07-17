@@ -21,7 +21,7 @@ export default function HealthChat() {
   setLoading(true);
 
   try {
-    const res = await fetch("http://localhost:5000/api/chat/health", {
+    const res = await fetch("http://rapha-ai-server.onrender.com/api/chat/health", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
