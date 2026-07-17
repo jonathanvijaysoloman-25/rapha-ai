@@ -5,6 +5,7 @@ const symptomRoutes = require("./routes/symptomRoutes");
 const prescriptionRoutes = require("./routes/prescriptionRoutes");
 const medicalReportRoutes = require("./routes/medicalReportRoutes");
 const doctorRoutes = require("./routes/doctorRoutes");
+const locationRoutes = require("./routes/locationRoutes");
 //const authRoutes = require("./routes/authRoutes");
 const app = express();
 
@@ -22,6 +23,7 @@ app.use("/api/symptoms", symptomRoutes);
 app.use("/api/prescriptions", prescriptionRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/medical-report", medicalReportRoutes);
+app.use("/api/location", locationRoutes);
 
 app.get("/api/test", (req, res) => {
   res.json({ message: "API is working!" });
