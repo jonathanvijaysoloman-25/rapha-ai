@@ -112,12 +112,12 @@ router.get("/diagnostics", async (req, res) => {
 
     res.json(diagnostics);
   } catch (err) {
-    console.error(err.response?.data || err.message);
+  console.error("Geoapify Error:", err.response?.data || err.message);
 
-    res.status(500).json({
-      error: "Unable to fetch diagnostics",
-    });
-  }
+  return res.status(500).json({
+    error: err.response?.data || err.message,
+  });
+}
 });
 
 module.exports = router;
