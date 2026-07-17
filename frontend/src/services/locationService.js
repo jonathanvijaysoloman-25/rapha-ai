@@ -1,89 +1,57 @@
-export async function getNearbyHospitals(lat, lon) {
-  const query = `
-    [out:json];
-    (
-      node["amenity"="hospital"](around:5000,${lat},${lon});
-      way["amenity"="hospital"](around:5000,${lat},${lon});
-      relation["amenity"="hospital"](around:5000,${lat},${lon});
-    );
-    out center;
-  `;
+const API_BASE = "https://rapha-ai-server.onrender.com/api/location";
 
+export async function getNearbyHospitals(lat, lon) {
   try {
-    const response = await fetch("https://overpass-api.de/api/interpreter", {
-      method: "POST",
-      headers: {
-        "Content-Type": "text/plain;charset=UTF-8",
-      },
-      body: query,
-    });
+    const response = await fetch(
+      `${API_BASE}/hospitals?lat=${lat}&lon=${lon}`
+    );
 
     if (!response.ok) {
-      throw new Error("Overpass API error: " + response.status);
+      throw new Error("Failed to fetch hospitals");
     }
 
     const data = await response.json();
 
-    return (data.elements || []).map((el) => {
-      return {
-        id: el.id,
-        type: el.type,
-        lat: el.lat || el.center?.lat,
-        lon: el.lon || el.center?.lon,
+    return (data || []).map((el) => ({
+      id: el.id,
+      type: el.type,
+      lat: el.lat || el.center?.lat,
+      lon: el.lon || el.center?.lon,
 
-        // ✅ FULL NAME FIX
-        name:
-          el.tags?.name ||
-          el.tags?.["name:en"] ||
-          el.tags?.["name:en-US"] ||
-          el.tags?.official_name ||
-          el.tags?.operator ||
-          el.tags?.brand ||
-          "Unknown Hospital",
+      name:
+        el.tags?.name ||
+        el.tags?.["name:en"] ||
+        el.tags?.["name:en-US"] ||
+        el.tags?.official_name ||
+        el.tags?.operator ||
+        el.tags?.brand ||
+        "Unknown Hospital",
 
-        address:
-          el.tags?.["addr:full"] ||
-          el.tags?.["addr:street"] ||
-          el.tags?.["addr:city"] ||
-          "",
-      };
-    });
+      address:
+        el.tags?.["addr:full"] ||
+        el.tags?.["addr:street"] ||
+        el.tags?.["addr:city"] ||
+        "",
+    }));
   } catch (error) {
     console.error("Error fetching hospitals:", error);
     return [];
   }
 }
 
-
-
-
 export async function getNearbyPharmacies(lat, lon) {
-  const query = `
-    [out:json];
-    (
-      node["amenity"="pharmacy"](around:5000,${lat},${lon});
-      way["amenity"="pharmacy"](around:5000,${lat},${lon});
-      relation["amenity"="pharmacy"](around:5000,${lat},${lon});
-    );
-    out center;
-  `;
-
   try {
-    const response = await fetch("https://overpass-api.de/api/interpreter", {
-      method: "POST",
-      headers: {
-        "Content-Type": "text/plain;charset=UTF-8",
-      },
-      body: query,
-    });
+    const response = await fetch(
+      `${API_BASE}/pharmacies?lat=${lat}&lon=${lon}`
+    );
 
     if (!response.ok) {
-      throw new Error("Overpass API error: " + response.status);
+      throw new Error("Failed to fetch pharmacies");
     }
 
     const data = await response.json();
 
-    return (data.elements || []).map((el) => ({
+    return (data || []).map((el) => ({
       id: el.id,
       type: el.type,
       lat: el.lat || el.center?.lat,

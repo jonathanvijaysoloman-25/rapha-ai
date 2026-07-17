@@ -6,8 +6,6 @@ import {
   Calculator,
   MapPin,
   MessageCircle,
-  HeartPulse,
-  User,
   LogOut,
   Heart,
 } from "lucide-react";
@@ -29,8 +27,6 @@ export default function Sidebar() {
     { name: "Nearby Hospitals ", icon: MapPin, path: "/nearby-hospitals" },
     { name: "Nearest Pharmacy & Diagnostics", icon: MapPin, path: "/pharmacies" },
     { name: "AI Health Chat", icon: MessageCircle, path: "/health-chat" },
-    { name: "Health Dashboard", icon: HeartPulse, path: "/health-dashboard" },
-    { name: "Profile", icon: User, path: "/profile" },
   ];
 
   const handleLogout = async () => {
