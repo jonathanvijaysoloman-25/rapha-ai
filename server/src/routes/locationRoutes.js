@@ -4,12 +4,16 @@ const axios = require("axios");
 const router = express.Router();
 
 async function fetchOverpass(query) {
+  const params = new URLSearchParams();
+  params.append("data", query);
+
   const response = await axios.post(
     "https://overpass-api.de/api/interpreter",
-    query,
+    params.toString(),
     {
       headers: {
-        "Content-Type": "text/plain",
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Accept": "application/json",
       },
     }
   );
