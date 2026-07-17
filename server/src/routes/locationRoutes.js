@@ -8,7 +8,7 @@ async function fetchOverpass(query) {
   params.append("data", query);
 
   const response = await axios.post(
-    "https://overpass-api.de/api/interpreter",
+    "https://overpass.kumi.systems/api/interpreter",
     params.toString(),
     {
       headers: {
